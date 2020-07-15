@@ -1,9 +1,11 @@
 import React from 'react';
 
-function ToDoItem() {
+function ToDoItem(props) {
 	return (
-		<li>
-
+		<li className='todoitem'>
+			<div className="todoitem__status"></div>
+			<p className='todoitem__title'>{props.title}</p>
+			<p className='todoitem__when'>{props.when}</p>
 		</li>
 	);
 }
