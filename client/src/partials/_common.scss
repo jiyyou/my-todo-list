@@ -1,0 +1,28 @@
+@import 'variables';
+@import 'fonts';
+
+* {
+	padding: 0;
+	margin: 0;
+}
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+img {
+	display: block; //fix minor vertical positioning issue
+}
+a {
+	text-decoration: none;
+}
+ul, li {
+	list-style-type: none;
+}
+textarea {
+	resize: none;
+}
+button {
+	outline: none;
+}
