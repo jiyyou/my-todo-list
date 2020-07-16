@@ -4,7 +4,7 @@ function ToDoItem(props) {
 	return (
 		<li className='todoitem'>
 			<div className="todoitem__status"></div>
-			<p className='todoitem__title'>{props.title}</p>
+			<h3 className='todoitem__title'>{props.title}</h3>
 			<p className='todoitem__when'>{props.when}</p>
 		</li>
 	);
