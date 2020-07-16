@@ -8,7 +8,7 @@ class Main extends React.Component {
 
 	render() {
 		return (
-			<section>
+			<section className='main'>
 				<ToDoCard />
 			</section>
 		);
