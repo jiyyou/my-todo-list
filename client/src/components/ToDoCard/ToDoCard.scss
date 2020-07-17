@@ -3,7 +3,8 @@
 .todocard {
 	display: flex;
 	flex-wrap: wrap;
-
+	width: 100%;
+	max-width: 720px;
 	&__tab {
 		width: 50%;
 		border-left: 2px solid $vsilver;
@@ -29,7 +30,7 @@
 		border-right: 2px solid $vsilver;
 		border-bottom: 2px solid $vsilver;
 		padding: 1.5rem 0.5rem;
-		& button {
+		& > div > button, > div > form > button {
 			background-color: rgba(0,0,0,0);
 			border: 2px solid $vsilver;
 			border-radius: 4px;

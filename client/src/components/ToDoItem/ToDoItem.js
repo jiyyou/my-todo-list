@@ -5,7 +5,6 @@ import './ToDoItem.scss';
 class ToDoItem extends React.Component {
 	state = {
 		status: 'todo',
-		exist: true
 	}
 
 	checkComplete = () => {
@@ -23,19 +22,15 @@ class ToDoItem extends React.Component {
 			})
 	}
 
-		
-
 	render() {
 		return (
-			this.state.exist === true 
-				? <li className='todoitem'>
-					{this.props.status === 'todo' 
-						? <div className={this.state.status === 'todo' ? 'todoitem__status' : 'todoitem__status todoitem__status--complete'} onClick={this.checkComplete}></div>
-						: ''
-					}				
-					<h3 className='todoitem__title'>{this.props.todo}</h3>
-				</li>
-				: ''						
+			<li className='todoitem'>
+				{this.props.status === 'todo' 
+					? <div className={this.state.status === 'todo' ? 'todoitem__status' : 'todoitem__status todoitem__status--complete'} onClick={this.checkComplete}></div>
+					: ''
+				}				
+				<h3 className='todoitem__title'>{this.props.todo}</h3>
+			</li>					
 		);	
 	}
 }

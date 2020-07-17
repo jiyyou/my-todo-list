@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import ToDoForm from '../ToDoForm/ToDoForm';
+import CompleteItem from '../CompleteItem/CompleteItem';
 import './ToDoCard.scss';
 
 
@@ -49,9 +50,31 @@ class ToDoCard extends React.Component {
 
 	//toggle tab to todo
 	todoTabClickHandler = () => {
-		this.setState({
-			tab: 'todo'
-		})
+		axios
+			.get(`http://localhost:8080/auth/check-auth`, { withCredentials: true })
+			.then(res => {				
+				axios
+					.get(`http://localhost:8080/user/${res.data.id}`)
+					.then(response => {
+						let user = response.data[0];
+						this.setState({
+							loggedIn: true,
+							tab: 'todo',
+							user: {
+								fName: user.fName,
+								lName: user.lName,
+								id: user.id								
+							},
+							todo: user.todo
+						});
+					})
+			})
+			.catch(err => {
+				this.setState({
+					loggedIn: false,
+					user: {}
+				})
+			})
 	}
 
 	//toggle tab to complete
@@ -81,6 +104,7 @@ class ToDoCard extends React.Component {
 					user: {}
 				})
 			})
+
 	}
 
 	//toggle ToDoForm
@@ -139,7 +163,7 @@ class ToDoCard extends React.Component {
 			return '';
 		})
 		return completeList.map(todo => {
-			return <ToDoItem todo={todo.todo} todoId={todo.id} status={todo.status} />
+			return <CompleteItem todo={todo.todo} todoId={todo.id} status={todo.status} />
 		})
 	}
 
@@ -168,24 +192,25 @@ class ToDoCard extends React.Component {
 							</a>						
 							:	<>
 								<h1 className='todocard__name'>{`${this.state.user.fName} ${this.state.user.lName}`}</h1>
-								<ul className='todocard__list'>
-									{this.state.tab === 'todo'
-										? this.renderTodo()
-										: this.renderComplete()
-									}
-								</ul>
+								{this.state.tab === 'todo'
+									? <ul className='todocard__list'>
+										{this.renderTodo()}
+									</ul>
+									: <ul className='todocard__list'>
+										{this.renderComplete()}
+									</ul>
+								}								
 								{this.state.tab === 'todo' 
-									?<button 
+									?	<>
+										<button 
 										className={this.state.addItem === true ? 'active-button' : '' }
 										onClick={this.toggleAdd}>
 											Add Item
-									</button> 
+										</button>
+									{this.state.addItem === true ? <ToDoForm toggleAdd={this.toggleAdd} submitHandler={this.submitHandler} /> : ''}
+									</>
 									:''
-								}
-								{this.state.addItem === true
-									?	<ToDoForm toggleAdd={this.toggleAdd} submitHandler={this.submitHandler} />
-									:	''
-								}
+								}								
 							</>						
 						}
 					</div>

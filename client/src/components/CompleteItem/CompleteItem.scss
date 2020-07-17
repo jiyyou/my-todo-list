@@ -1,0 +1,25 @@
+@import '../../partials/mixins';
+
+.completeitem {
+	border-bottom: 1px solid $vgrey;
+	padding: 0.2rem;
+	display: flex;
+	align-items: center;
+	position: relative;
+	&__title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 88%;
+	}
+	&__delete {
+		margin-left: auto;
+		width: 14px !important;
+		height: 14px !important;
+		&:hover {
+			& > path {
+				color: red;
+			}
+		}
+	}	
+}

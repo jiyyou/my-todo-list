@@ -28,10 +28,14 @@ router.put('/:id', (req, res) => {
 
 //delete todo
 router.delete('/:id', (req, res) => {
-	Todo.where('id', req.params.id)
+	Todo.query()
+		.where('id', req.params.id)
 		.del()
 		.then(res => {
 			console.log(res);
+		})
+		.catch(err => {
+			console.log(err);
 		})
 })
 
