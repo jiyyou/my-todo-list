@@ -36,6 +36,7 @@
 			border-radius: 4px;
 			width: 100%;
 			height: 2rem;
+			font-size: 1.2rem;
 			&:hover {
 				background-color: $vsilver;
 				color: white;
@@ -44,6 +45,7 @@
 	}
 	&__name {
 		text-align: center;
+		font-size: 2rem;
 	}
 	&__list {
 		margin: 0.5rem 0 1rem 0;
