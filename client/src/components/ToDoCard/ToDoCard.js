@@ -56,9 +56,31 @@ class ToDoCard extends React.Component {
 
 	//toggle tab to complete
 	completeTabClickHandler = () => {
-		this.setState({
-			tab: 'complete'
-		})
+		axios
+			.get(`http://localhost:8080/auth/check-auth`, { withCredentials: true })
+			.then(res => {				
+				axios
+					.get(`http://localhost:8080/user/${res.data.id}`)
+					.then(response => {
+						let user = response.data[0];
+						this.setState({
+							loggedIn: true,
+							tab: 'complete',
+							user: {
+								fName: user.fName,
+								lName: user.lName,
+								id: user.id								
+							},
+							todo: user.todo
+						});
+					})
+			})
+			.catch(err => {
+				this.setState({
+					loggedIn: false,
+					user: {}
+				})
+			})
 	}
 
 	//toggle ToDoForm
@@ -95,14 +117,6 @@ class ToDoCard extends React.Component {
 		e.target.reset();
 	}
 
-	//set status of todo to complete
-	todoComplete = () => {
-		
-		this.setState({
-
-		})
-	}
-
 	//render todo list
 	renderTodo = () => {
 		let todoList = this.state.todo.filter(todo => {
@@ -112,7 +126,7 @@ class ToDoCard extends React.Component {
 			return '';
 		})
 		return todoList.map(todo => {
-			return <ToDoItem todo={todo.todo} todoId={todo.id} todoComplete={this.todoComplete} />
+			return <ToDoItem todo={todo.todo} todoId={todo.id} status={todo.status} />
 		})
 	}
 
@@ -125,12 +139,11 @@ class ToDoCard extends React.Component {
 			return '';
 		})
 		return completeList.map(todo => {
-			return <ToDoItem todo={todo.todo} todoId={todo.id} todoComplete={this.todoComplete} />
+			return <ToDoItem todo={todo.todo} todoId={todo.id} status={todo.status} />
 		})
 	}
 
 	render() {
-		console.log(this.state);
 		return (
 			<div className='todocard'>
 				<div

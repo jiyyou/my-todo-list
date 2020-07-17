@@ -5,21 +5,24 @@
 	padding: 0.2rem;
 	display: flex;
 	align-items: center;
+	position: relative;
 	&__status {
 		border: 1px solid $vsilver;
 		border-radius: 100%;
-		width: 15px;
+		width: 15px !important;
 		height: 15px;
 		margin-right: 0.5rem;
 		&:hover {
-			background-color: $vgrey;
+			background-color: $vsilver;
+		}
+		&--complete {
+			background-color: $vsilver;
 		}
 	}
-	&__when {
-		display: flex;		
-		align-items: center;
-		border: 1px solid $vgrey;
-		border-radius: 4px;
-		background-color: $vgrey;
+	&__title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 88%;
 	}
 }
