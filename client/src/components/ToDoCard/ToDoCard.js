@@ -190,7 +190,7 @@ class ToDoCard extends React.Component {
 				<div className='todocard__box'>
 					<div>
 						{this.state.loggedIn === false
-							?	<a href="http://localhost:8080/auth/google">
+							?	<a href=`${API_URL}/auth/google`>
 								<button>Log In</button>
 							</a>						
 							:	<>
