@@ -1,7 +1,9 @@
 import React from 'react';
-import ToDoItem from '../ToDoItem/ToDoItem';
 import axios from 'axios';
+import ToDoItem from '../ToDoItem/ToDoItem';
+import ToDoForm from '../ToDoForm/ToDoForm';
 import './ToDoCard.scss';
+
 
 class ToDoCard extends React.Component {
 	state = {
@@ -12,7 +14,8 @@ class ToDoCard extends React.Component {
 			lName: '',
 			id: '',
 			todo: []
-		}
+		},
+		addItem: false
 	}
 
 	componentDidMount() {
@@ -55,39 +58,60 @@ class ToDoCard extends React.Component {
 		})
 	}
 
+	toggleAdd = e => {
+		e.preventDefault();
+		this.state.addItem === false
+		?this.setState({
+			addItem: true
+		})
+		:this.setState({
+			addItem: false
+		})
+	}
+
 	render() {
 		return (
 			<div className='todocard'>
 				<div
 					className={this.state.tab === 'todo'
-						?'todocard__tab todocard__tab--active'
-						:'todocard__tab'}
+						? 'todocard__tab todocard__tab--active'
+						: 'todocard__tab'}
 					onClick={this.todoTabClickHandler}>
 					<h2>To Do</h2>
 				</div>
 				<div
 					className={this.state.tab === 'complete'
-						?'todocard__tab todocard__tab--complete todocard__tab--active'
-						:'todocard__tab todocard__tab--complete'} 
+						?	'todocard__tab todocard__tab--complete todocard__tab--active'
+						: 'todocard__tab todocard__tab--complete'} 
 					onClick={this.completeTabClickHandler}>
 					<h2>Complete</h2>
 				</div>
 				<div className='todocard__box'>
 					<div>
 						{this.state.loggedIn === false
-							?<a href="http://localhost:8080/auth/google">
+							?	<a href="http://localhost:8080/auth/google">
 								<button>Log In</button>
 							</a>						
-							:<>
+							:	<>
 								<h1>Jiyo You</h1>
 								<ul>
 									{this.state.tab === 'todo'
 										? <p>hi</p>
-										: <p>hello</p>}
+										: <p>hello</p>
+									}
 								</ul>
 								{this.state.tab === 'todo' 
-									?<button>Add Item</button> 
-									:'' }
+									?<button 
+										className={this.state.addItem === true ? 'active-button' : '' }
+										onClick={this.toggleAdd}>
+											Add Item
+									</button> 
+									:''
+								}
+								{this.state.addItem === true
+									?	<ToDoForm />
+									:	''
+								}
 							</>						
 						}
 					</div>

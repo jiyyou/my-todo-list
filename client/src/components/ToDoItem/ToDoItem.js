@@ -5,7 +5,6 @@ function ToDoItem(props) {
 		<li className='todoitem'>
 			<div className="todoitem__status"></div>
 			<h3 className='todoitem__title'>{props.todo}</h3>
-			<p className='todoitem__when'>{props.when}</p>
 		</li>
 	);
 }
