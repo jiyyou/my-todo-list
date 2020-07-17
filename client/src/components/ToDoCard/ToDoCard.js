@@ -5,6 +5,9 @@ import ToDoForm from '../ToDoForm/ToDoForm';
 import CompleteItem from '../CompleteItem/CompleteItem';
 import './ToDoCard.scss';
 
+const API_URL = process.env.NODE_ENV === "production"
+  ? 'https://jy-todo-list.herokuapp.com'
+  : 'http://localhost:8080';
 
 class ToDoCard extends React.Component {
 	state = {
@@ -23,10 +26,10 @@ class ToDoCard extends React.Component {
 	componentDidMount() {
 		// CHECK IF USER IS LOGGED IN
 		axios
-			.get(`http://localhost:8080/auth/check-auth`, { withCredentials: true })
+			.get(`${API_URL}/auth/check-auth`, { withCredentials: true })
 			.then(res => {				
 				axios
-					.get(`http://localhost:8080/user/${res.data.id}`)
+					.get(`${API_URL}/user/${res.data.id}`)
 					.then(response => {
 						let user = response.data[0];
 						this.setState({
@@ -51,10 +54,10 @@ class ToDoCard extends React.Component {
 	//toggle tab to todo
 	todoTabClickHandler = () => {
 		axios
-			.get(`http://localhost:8080/auth/check-auth`, { withCredentials: true })
+			.get(`${API_URL}/auth/check-auth`, { withCredentials: true })
 			.then(res => {				
 				axios
-					.get(`http://localhost:8080/user/${res.data.id}`)
+					.get(`${API_URL}/user/${res.data.id}`)
 					.then(response => {
 						let user = response.data[0];
 						this.setState({
@@ -80,10 +83,10 @@ class ToDoCard extends React.Component {
 	//toggle tab to complete
 	completeTabClickHandler = () => {
 		axios
-			.get(`http://localhost:8080/auth/check-auth`, { withCredentials: true })
+			.get(`${API_URL}/auth/check-auth`, { withCredentials: true })
 			.then(res => {				
 				axios
-					.get(`http://localhost:8080/user/${res.data.id}`)
+					.get(`${API_URL}/user/${res.data.id}`)
 					.then(response => {
 						let user = response.data[0];
 						this.setState({
@@ -126,7 +129,7 @@ class ToDoCard extends React.Component {
 			whatTodo : e.target.todo.value
 		}, () => {
 			axios
-				.post('http://localhost:8080/todo/', {
+				.post(`${API_URL}/todo/`, {
 					todo: this.state.whatTodo,
 					userId: this.state.user.id
 				})

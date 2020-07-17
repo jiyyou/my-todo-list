@@ -11,7 +11,7 @@ const toDoRoutes = require('./routes/toDoRoutes');
 const passportSetup = require('./config/passportSetup');
 
 require('dotenv').config();
-const port = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
 app.use(cors({
@@ -35,4 +35,19 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/todo', toDoRoutes);
 
-app.listen(8080, () => console.log("Listening on port 8080.."));
+let connection;
+if (process.env.JAWSDB_URL) {
+	// connection = mysql.createConnection(process.env.JAWSDB_URL);
+	connection = mysql.createConnection(knex.production);
+} else {
+	connection = mysql.createConnection(knex.development);
+}
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('../client/build'))
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+	})
+}
+
+app.listen(PORT, () => console.log(`Listening on port ${PORT}..`));

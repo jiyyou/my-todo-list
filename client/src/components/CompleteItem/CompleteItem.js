@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './CompleteItem.scss';
 
+const API_URL = process.env.NODE_ENV === "production"
+  ? 'https://jy-todo-list.herokuapp.com'
+  : 'http://localhost:8080';
+
 class CompleteItem extends React.Component {
 	state = {
 		exist: true
@@ -11,7 +15,7 @@ class CompleteItem extends React.Component {
 
 	deleteTodo = () => {
 		axios
-			.delete(`http://localhost:8080/todo/${this.props.todoId}`);
+			.delete(`${API_URL}/todo/${this.props.todoId}`);
 		this.setState({
 			exist: false
 		})

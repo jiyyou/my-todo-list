@@ -2,6 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import './ToDoItem.scss';
 
+const API_URL = process.env.NODE_ENV === "production"
+  ? 'https://jy-todo-list.herokuapp.com'
+  : 'http://localhost:8080';
+
 class ToDoItem extends React.Component {
 	state = {
 		status: 'todo',
@@ -9,7 +13,7 @@ class ToDoItem extends React.Component {
 
 	checkComplete = () => {
 		axios
-			.put(`http://localhost:8080/todo/${this.props.todoId}`, {
+			.put(`${API_URL}/todo/${this.props.todoId}`, {
 				status: 'complete'
 			})
 			.then(() => {

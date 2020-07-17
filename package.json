@@ -1,0 +1,23 @@
+{
+  "name": "my-todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "start": "npm start --prefix server",
+    "server": "nodemon server --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix server && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiyyou/my-todo-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiyyou/my-todo-list/issues"
+  },
+  "homepage": "https://github.com/jiyyou/my-todo-list#readme"
+}
