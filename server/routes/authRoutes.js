@@ -20,7 +20,7 @@ router.get('/check-auth', (req, res) => {
 //callback route for google to redirect to
 router.get('/redirect', passport.authenticate('google'), (req, res) => {
 	if (process.env.NODE_ENV === 'production') {
-		res.redirect('https://res-ource.herokuapp.com/');	
+		res.redirect('https://jy-todo-list.herokuapp.com/');	
 	} else {
 		res.redirect('http://localhost:3000/');
 	}
