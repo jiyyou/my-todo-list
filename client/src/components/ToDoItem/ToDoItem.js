@@ -1,4 +1,5 @@
 import React from 'react';
+import './ToDoItem.scss';
 
 function ToDoItem(props) {
 	return (

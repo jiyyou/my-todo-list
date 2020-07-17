@@ -4,9 +4,8 @@ const User = require('../model/user');
 const Todo = require('../model/todo');
 
 router.post('/', (req, res) => {
-	new ToDo({
+	new Todo({
 		todo: req.body.todo,
-		when: req.body.when,
 		user_id: req.body.userId
 	})
 		.save()

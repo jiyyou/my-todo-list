@@ -1,14 +1,16 @@
 @import '../../partials/mixins';
 
 .todoitem {
-	border-top: 1px solid $vgrey;
 	border-bottom: 1px solid $vgrey;
-	padding: 0.2rem 0;
+	padding: 0.2rem;
+	display: flex;
+	align-items: center;
 	&__status {
-		border: 1px solid $vgrey;
+		border: 1px solid $vsilver;
 		border-radius: 100%;
-		width: 10px;
-		height: 10px;
+		width: 15px;
+		height: 15px;
+		margin-right: 0.5rem;
 		&:hover {
 			background-color: $vgrey;
 		}

@@ -12,10 +12,11 @@ class ToDoCard extends React.Component {
 		user: {
 			fName: '',
 			lName: '',
-			id: '',
-			todo: []
+			id: ''
 		},
-		addItem: false
+		todo: [],
+		addItem: false,
+		whatTodo: ''
 	}
 
 	componentDidMount() {
@@ -32,9 +33,9 @@ class ToDoCard extends React.Component {
 							user: {
 								fName: user.fName,
 								lName: user.lName,
-								id: user.id,
-								todo: user.todo
-							}
+								id: user.id								
+							},
+							todo: user.todo
 						});
 					})
 			})
@@ -46,30 +47,90 @@ class ToDoCard extends React.Component {
 			})
 	}
 
+	//toggle tab to todo
 	todoTabClickHandler = () => {
 		this.setState({
 			tab: 'todo'
 		})
 	}
 
+	//toggle tab to complete
 	completeTabClickHandler = () => {
 		this.setState({
 			tab: 'complete'
 		})
 	}
 
+	//toggle ToDoForm
 	toggleAdd = e => {
 		e.preventDefault();
 		this.state.addItem === false
-		?this.setState({
+		? this.setState({
 			addItem: true
 		})
-		:this.setState({
+		: this.setState({
 			addItem: false
 		})
 	}
 
+	//formHandler for new todo
+	submitHandler = e => {
+		e.preventDefault();
+		this.setState({
+			whatTodo : e.target.todo.value
+		}, () => {
+			axios
+				.post('http://localhost:8080/todo/', {
+					todo: this.state.whatTodo,
+					userId: this.state.user.id
+				})
+				.then(res => {
+					this.setState({
+						todo: this.state.todo.concat(res.data)
+					}, () => {
+						console.log(this.state);
+					})
+				})
+		})
+		e.target.reset();
+	}
+
+	//set status of todo to complete
+	todoComplete = () => {
+		
+		this.setState({
+
+		})
+	}
+
+	//render todo list
+	renderTodo = () => {
+		let todoList = this.state.todo.filter(todo => {
+			if (todo.status === 'todo') {
+				return todo;				
+			}
+			return '';
+		})
+		return todoList.map(todo => {
+			return <ToDoItem todo={todo.todo} todoId={todo.id} todoComplete={this.todoComplete} />
+		})
+	}
+
+	//render complete list
+	renderComplete = () => {
+		let completeList = this.state.todo.filter(todo => {
+			if (todo.status === 'complete') {
+				return todo;
+			}
+			return '';
+		})
+		return completeList.map(todo => {
+			return <ToDoItem todo={todo.todo} todoId={todo.id} todoComplete={this.todoComplete} />
+		})
+	}
+
 	render() {
+		console.log(this.state);
 		return (
 			<div className='todocard'>
 				<div
@@ -93,11 +154,11 @@ class ToDoCard extends React.Component {
 								<button>Log In</button>
 							</a>						
 							:	<>
-								<h1>Jiyo You</h1>
-								<ul>
+								<h1 className='todocard__name'>{`${this.state.user.fName} ${this.state.user.lName}`}</h1>
+								<ul className='todocard__list'>
 									{this.state.tab === 'todo'
-										? <p>hi</p>
-										: <p>hello</p>
+										? this.renderTodo()
+										: this.renderComplete()
 									}
 								</ul>
 								{this.state.tab === 'todo' 
@@ -109,7 +170,7 @@ class ToDoCard extends React.Component {
 									:''
 								}
 								{this.state.addItem === true
-									?	<ToDoForm />
+									?	<ToDoForm toggleAdd={this.toggleAdd} submitHandler={this.submitHandler} />
 									:	''
 								}
 							</>						

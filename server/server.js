@@ -7,6 +7,7 @@ const mysql = require('mysql');
 const knex = require('./knexfile');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const toDoRoutes = require('./routes/toDoRoutes');
 const passportSetup = require('./config/passportSetup');
 
 require('dotenv').config();
@@ -32,5 +33,6 @@ app.use(passport.session());
 //set up routes
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/todo', toDoRoutes);
 
 app.listen(8080, () => console.log("Listening on port 8080.."));
