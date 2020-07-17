@@ -190,9 +190,10 @@ class ToDoCard extends React.Component {
 				<div className='todocard__box'>
 					<div>
 						{this.state.loggedIn === false
-							?	<a href=`${API_URL}/auth/google`>
-								<button>Log In</button>
-							</a>						
+							?		
+								<a href={`${API_URL}/auth/google`}>
+									<button>Log In</button>
+								</a>							
 							:	<>
 								<h1 className='todocard__name'>{`${this.state.user.fName} ${this.state.user.lName}`}</h1>
 								{this.state.tab === 'todo'

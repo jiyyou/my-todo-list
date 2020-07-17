@@ -30,7 +30,7 @@
 		border-right: 2px solid $vsilver;
 		border-bottom: 2px solid $vsilver;
 		padding: 1.5rem 0.5rem;
-		& > div > button, > div > form > button {
+		& > div > button, > div > form > button, > div > a > button {
 			background-color: rgba(0,0,0,0);
 			border: 2px solid $vsilver;
 			border-radius: 4px;
